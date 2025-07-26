@@ -25,4 +25,4 @@
 
 ---
 
-Made by [@levroskoshin](https://github.com/levroskoshin)
+Made by [@lroskoshin](https://github.com/lroskoshin)
