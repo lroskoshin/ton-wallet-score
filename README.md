@@ -14,9 +14,9 @@
 
 ## Usage (soon)
 
-/start
-/score UQBe2…
-/top_roi 7d
+- `/start`
+- `/score UQBe2…`
+- `/top_roi 7d`
 
 ## Roadmap
 - [ ] MVP scoring
