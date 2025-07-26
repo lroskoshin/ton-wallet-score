@@ -9,7 +9,7 @@
 - TON HTTP API
 
 ## Progress
-- Day 0: repo & bot created (`@ton_score_bot`)
+- Day 0: repo & bot created (`@ton_wallet_score_bot`)
 - Day 1: MVP `/score` command
 
 ## Usage (soon)
