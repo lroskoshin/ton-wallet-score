@@ -20,7 +20,7 @@
     "test:e2e": "jest --config ./apps/ton-wallet-score/test/jest-e2e.json",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
-    "prisma:push":   "prisma db push",
+    "prisma:push": "prisma db push",
     "postinstall": "prisma generate",
     "prisma:reset": "prisma migrate reset"
   },
@@ -29,6 +29,7 @@
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
     "@prisma/client": "^6.12.0",
+    "@prisma/extension-accelerate": "^2.0.2",
     "@ton/crypto": "^3.3.0",
     "@ton/ton": "^15.3.1",
     "reflect-metadata": "^0.2.0",
