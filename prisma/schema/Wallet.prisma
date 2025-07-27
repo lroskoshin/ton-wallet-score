@@ -1,0 +1,17 @@
+enum WalletLabel {
+  WHALE
+  EARLY
+  FARMER
+  DUST
+}
+
+model Wallet {
+  id         String       @id @default(cuid())
+  address    String       @unique
+  roi        Float        // 0.23 = +23 %
+  volatility Float        // 0.15 = 15 % daily
+  labels     WalletLabel[]
+  updatedAt  DateTime     @updatedAt
+
+  transactions Transaction[]
+}

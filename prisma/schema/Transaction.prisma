@@ -1,0 +1,15 @@
+model Transaction {
+  id        String   @id @default(cuid())
+  hash      String   @unique
+  walletId  String
+  value     Float    // TON amount
+  timestamp DateTime
+  type      TxType
+
+  wallet Wallet @relation(fields: [walletId], references: [id])
+}
+
+enum TxType {
+  IN
+  OUT
+}
