@@ -4,6 +4,7 @@ import { BotService } from './bot.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TelegrafModule } from 'nestjs-telegraf';
 import { Env, EnvModule, PrismaModule } from '@app/shared';
+import { BotUpdate } from './bot.update';
 
 @Module({
   imports: [
@@ -17,6 +18,6 @@ import { Env, EnvModule, PrismaModule } from '@app/shared';
     }),
   ],
   controllers: [BotController],
-  providers: [BotService],
+  providers: [BotService, BotUpdate],
 })
 export class BotModule {}
