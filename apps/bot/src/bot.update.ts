@@ -3,6 +3,7 @@ import { Update, Start, Command, Ctx, Message, Sender } from 'nestjs-telegraf';
 import { bold, fmt } from 'telegraf/format';
 import { PrismaService } from '@app/shared';
 import { Context } from './interfaces/context.interface';
+import { Address } from '@ton/ton';
 
 @Update()
 export class BotUpdate {
@@ -23,6 +24,13 @@ export class BotUpdate {
     @Sender('id') userId: number,
   ): Promise<void> {
     const [, address] = text.split(/\s+/);
+    if (!Address.isAddress(address)) {
+      await ctx.reply(
+        '🤔 Invalid address, please try again with a valid TON address',
+      );
+      return;
+    }
+
     if (!address) {
       await ctx.reply('Usage: /score <ton-address>');
       return;
