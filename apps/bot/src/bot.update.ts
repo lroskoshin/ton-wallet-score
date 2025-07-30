@@ -10,7 +10,10 @@ export class BotUpdate {
 
   @Start()
   async start(@Ctx() ctx: Context) {
-    await ctx.reply('Hi! Send /score <TON-address>');
+    await ctx.reply(
+      fmt`👋 Hi! Send /score <TON-address> to get wallet analysis\n\n⚠️  This is a naive implementation and the bot is under development`,
+      { parse_mode: 'HTML' },
+    );
   }
 
   @Command('score')
@@ -33,7 +36,7 @@ export class BotUpdate {
       await ctx.reply(
         fmt`🔍 ${bold(address.slice(0, 6))}…${bold(
           address.slice(-4),
-        )}\nScore is not available yet, but will be soon ⏳`,
+        )}\n\n📊 Score is not available yet, but will be soon ⏳`,
         { parse_mode: 'HTML' },
       );
       return;
