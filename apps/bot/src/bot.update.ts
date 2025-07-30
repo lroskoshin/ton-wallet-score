@@ -14,12 +14,15 @@ import { Context } from './interfaces/context.interface';
 import { Address } from '@ton/ton';
 import { Telegraf } from 'telegraf';
 import { OnModuleInit } from '@nestjs/common';
+import { Queue } from 'bullmq';
+import { InjectQueue } from '@nestjs/bullmq';
 
 @Update()
 export class BotUpdate implements OnModuleInit {
   constructor(
     private readonly prisma: PrismaService,
     @InjectBot() private readonly bot: Telegraf<Context>,
+    @InjectQueue('wallet-score') private readonly walletScoreQueue: Queue,
   ) {}
 
   onModuleInit() {
@@ -71,6 +74,7 @@ export class BotUpdate implements OnModuleInit {
         )}\n\n📊 Score is not available yet, but will be soon ⏳`,
         { parse_mode: 'HTML' },
       );
+      await this.walletScoreQueue.add('calculate', { address });
       return;
     }
 

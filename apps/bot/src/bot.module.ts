@@ -17,6 +17,9 @@ import { BotUpdate } from './bot.update';
       }),
       inject: [ConfigService],
     }),
+    BullModule.registerQueue({
+      name: 'wallet-score',
+    }),
     TelegrafModule.forRootAsync({
       useFactory: (configService: ConfigService<Env>) => ({
         token: configService.get('BOT_TOKEN', { infer: true })!,
