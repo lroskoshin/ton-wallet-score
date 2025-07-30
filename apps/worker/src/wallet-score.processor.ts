@@ -11,6 +11,23 @@ export class WalletScoreProcessor extends WorkerHost {
 
   async process(job: Job<{ address: string }>) {
     const { address } = job.data;
-    console.log(address);
+
+    const wallet = await this.prisma.wallet.findUnique({
+      where: {
+        address,
+      },
+    });
+
+    if (!wallet) {
+      await this.prisma.wallet.create({
+        data: {
+          address,
+          roi: 0,
+          volatility: 0,
+        },
+      });
+    }
+
+    console.log(`Processing wallet score for address: ${address}`);
   }
 }

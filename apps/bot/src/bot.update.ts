@@ -49,14 +49,18 @@ export class BotUpdate implements OnModuleInit {
     @Message('text') text: string,
     @Sender('id') userId: number,
   ): Promise<void> {
-    const [, address] = text.split(/\s+/);
+    const address = text.split(/\s+/)[1].trim();
 
     if (!address) {
-      await ctx.reply('Usage: /score <ton-address>');
+      await ctx.reply(
+        fmt`Usage: /score &lt;ton-address&gt;` +
+          `friendly or raw format, example: /score UQBYEumAtLN43rfeJgkDT3803xq_CtVGlUjovVLJe3QaHlmg`,
+        { parse_mode: 'HTML' },
+      );
       return;
     }
 
-    if (!Address.isAddress(address)) {
+    if (!Address.isFriendly(address) && !Address.isRaw(address)) {
       await ctx.reply(
         '🤔 Invalid address, please try again with a valid TON address',
       );
@@ -74,7 +78,22 @@ export class BotUpdate implements OnModuleInit {
         )}\n\n📊 Score is not available yet, but will be soon ⏳`,
         { parse_mode: 'HTML' },
       );
-      await this.walletScoreQueue.add('calculate', { address });
+      const waitingCount = await this.walletScoreQueue.getWaitingCount();
+      if (waitingCount > 1000) {
+        await ctx.reply(
+          fmt`🔍 ${bold(address.slice(0, 6))}…${bold(address.slice(-4))}\n\n📊 Score is not available yet, and queue is full ⏳`,
+          { parse_mode: 'HTML' },
+        );
+        return;
+      }
+
+      await this.walletScoreQueue.add(
+        'calculate',
+        { address },
+        {
+          jobId: `wallet-score-calculate-${address}`,
+        },
+      );
       return;
     }
 
