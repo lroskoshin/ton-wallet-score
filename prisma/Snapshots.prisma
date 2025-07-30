@@ -1,0 +1,8 @@
+model Snapshot {
+  id        String   @id @default(uuid())
+	walletId  String
+  timestamp DateTime @default(now())
+
+  balances Balance[]
+  wallet Wallet @relation(fields: [walletId], references: [id])
+}

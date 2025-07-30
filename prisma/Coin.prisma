@@ -1,0 +1,7 @@
+model Coin {
+  id        String   @id @default(cuid())
+  name      String
+  decimals  Int
+
+  balances Balance[]
+}
