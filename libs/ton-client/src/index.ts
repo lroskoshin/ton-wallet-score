@@ -1,2 +1,2 @@
 export * from './ton-client.module';
-export * from './ton-client.service';
+export { TonClient } from '@ton/ton';
