@@ -2,7 +2,7 @@ model Balance {
   id        String   @id @default(cuid())
   snapshotId String
   coinId     String
-  amount     Float
+  amount     BigInt
 
   snapshot Snapshot @relation(fields: [snapshotId], references: [id])
   coin     Coin     @relation(fields: [coinId], references: [id])
