@@ -24,7 +24,8 @@
     "prisma:migrate": "prisma migrate dev",
     "prisma:push": "prisma db push",
     "postinstall": "prisma generate",
-    "prisma:reset": "prisma migrate reset"
+    "prisma:reset": "prisma migrate reset",
+    "prisma:seed": "ts-node prisma/seed.ts"
   },
   "dependencies": {
     "@bull-board/api": "^6.12.0",
