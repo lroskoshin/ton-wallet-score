@@ -1,7 +1,5 @@
 import { Module } from '@nestjs/common';
-import { BotController } from './bot.controller';
-import { BotService } from './bot.service';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigService } from '@nestjs/config';
 import { TelegrafModule } from 'nestjs-telegraf';
 import { Env, EnvModule, PrismaModule } from '@app/shared';
 import { BotUpdate } from './bot.update';
@@ -13,11 +11,17 @@ import { BotUpdate } from './bot.update';
     TelegrafModule.forRootAsync({
       useFactory: (configService: ConfigService<Env>) => ({
         token: configService.get('BOT_TOKEN', { infer: true })!,
+        options: {
+          telegram: {
+            testEnv:
+              configService.get('TELEGRAM_ENV', { infer: true }) !==
+              'production',
+          },
+        },
       }),
       inject: [ConfigService],
     }),
   ],
-  controllers: [BotController],
-  providers: [BotService, BotUpdate],
+  providers: [BotUpdate],
 })
 export class BotModule {}
