@@ -87,13 +87,7 @@ export class BotUpdate implements OnModuleInit {
         return;
       }
 
-      await this.walletScoreQueue.add(
-        'calculate',
-        { address },
-        {
-          jobId: `wallet-score-calculate-${address}`,
-        },
-      );
+      await this.walletScoreQueue.add('calculate', { address });
       return;
     }
 
